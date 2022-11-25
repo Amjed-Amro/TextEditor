@@ -87,7 +87,9 @@ public class MongoServicesImpl implements MongoServices {
         user.setCredentialsNonExpired(Boolean.TRUE);
 
         mongoUserRepository.save(user);
-        return true;    }
+        return true;
+    }
+    //TODO: isEmail....
     private boolean emailExists(String email) {
         if (mongoUserRepository.findById(email) != null){
             return true;

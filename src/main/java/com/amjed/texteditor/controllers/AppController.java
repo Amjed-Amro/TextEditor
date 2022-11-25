@@ -13,15 +13,17 @@ import java.util.Date;
 
 
 @RestController
-
 public class AppController {
 
+    //TODO: where is the logger ?
+    //TODO: for   @CrossOrigin you can use it on class level rather than on controller level as you are using the same value for all
     @Autowired
     private BusinessServiceHandler businessServiceHandler;
 
     @CrossOrigin("http://localhost:8080")
     @GetMapping(value = "/saveDictionary")
     public @ResponseBody Object savaDictionary(HttpServletRequest httpRequest) {
+        //TODO : one of the best practices to be specific in response not general object , better to have custom class related to your service
         Object response = businessServiceHandler.savaDictionary(new Date(), httpRequest.getRemoteUser(),
                 httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
         return new ResponseEntity<>(response, HttpStatus.OK);

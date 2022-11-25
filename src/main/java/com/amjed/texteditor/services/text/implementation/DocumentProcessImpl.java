@@ -42,6 +42,9 @@ public class DocumentProcessImpl implements DocumentProcess {
     private EfficientDocument processText(EfficientDocument efficientDocument1) {
         EfficientDocument efficientDocument = efficientDocument1;
         List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+", efficientDocument.getText());
+        //TODO: @Task convert below to stream
+        //TODO:""[!?.]+|[a-zA-Z]+" should be constant to  avoid any change by mistake from any another eng working on the same project
+        //tokens.stream().map(a ->)
         for (int i = 0; i < tokens.size(); i++) {
             if (isWord(tokens.get(i))) {
                 efficientDocument.setNumWords(efficientDocument.getNumWords() + 1);
@@ -73,6 +76,8 @@ public class DocumentProcessImpl implements DocumentProcess {
         return efficientDocument;
     }
 
+
+    //TODO: you can move this to util class
     private boolean isWord(String tok) {
         return !(tok.indexOf("!") >= 0 || tok.indexOf(".") >= 0 || tok.indexOf("?") >= 0);
     }

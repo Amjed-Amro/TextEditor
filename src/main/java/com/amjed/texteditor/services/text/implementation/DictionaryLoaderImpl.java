@@ -7,9 +7,12 @@ import com.amjed.texteditor.services.text.DictionaryLoader;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
+
 @Log4j2
 @Service
 public class DictionaryLoaderImpl implements DictionaryLoader {
@@ -18,8 +21,9 @@ public class DictionaryLoaderImpl implements DictionaryLoader {
         BufferedReader reader = null;
         try {
             String nextWord;
+
             reader = new BufferedReader(new FileReader(filename));
-            while ((nextWord = reader.readLine()) != null) {
+            while ( (nextWord = reader.readLine()) != null) {
                 addWord(dictionaryTrie, nextWord);
             }
         } catch (IOException e) {
@@ -35,7 +39,9 @@ public class DictionaryLoaderImpl implements DictionaryLoader {
         try {
             String nextWord;
             reader = new BufferedReader(new FileReader(filename));
-            while ((nextWord = reader.readLine()) != null) {
+            //TODO: you can use here Objects.isNull()
+
+            while (!Objects.isNull (nextWord = reader.readLine())) {
                 addWord(dictionaryTrie, nextWord);
             }
         } catch (IOException e) {

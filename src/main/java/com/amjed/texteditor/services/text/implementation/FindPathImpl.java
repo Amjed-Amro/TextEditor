@@ -10,6 +10,8 @@ import java.util.*;
 
 @Service
 public class FindPathImpl implements FindPath {
+
+    //TODO: why below not overriding
     public List<String> findPath(String word1, String word2, DictionaryTrie dictionaryTrie) {
 
         List<WPTreeNode> queue = new LinkedList<>();
@@ -23,6 +25,7 @@ public class FindPathImpl implements FindPath {
             WPTreeNode currNode = queue.get(0);
             queue.remove(0);
             List<String> neighbor = nearbyWords.distanceOne(currNode.getWord(), true, dictionaryTrie);
+            //TODO: Try boss to convert below to stream
             for (String n : neighbor) {
                 if (!visited.contains(n)) {
                     visited.add(n);

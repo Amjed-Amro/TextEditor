@@ -1,5 +1,6 @@
 package com.amjed.texteditor.controllers;
 
+import com.amjed.texteditor.annotations.PasswordMatches;
 import com.amjed.texteditor.models.Dto.UserDto;
 import com.amjed.texteditor.services.business.UserServices;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,7 @@ public class RegistrationController {
 
     @CrossOrigin("http://localhost:8080")
     @PostMapping(value = "/user/registration", consumes = {"application/json"})
+
     public @ResponseBody ResponseEntity<Object> registration(@RequestBody @Valid UserDto userDto,HttpServletRequest httpRequest) {
         log.info(httpRequest.getRequestURL());
                 Object response = userServices.registerNewUserAccount(userDto, new Date(), httpRequest.getRemoteUser(),

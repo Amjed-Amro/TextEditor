@@ -5,6 +5,9 @@ import com.amjed.texteditor.models.Dto.DataInput;
 import java.util.Date;
 
 public interface BusinessServiceHandler {
+    //TODO: there is no need for public here as it is by default public
+    //TODO: Be Specif for retrun object
+    //TODO: if the function accepts more than 4 param, you may encabslte to one object
     public Object savaDictionary(Date requestDate, String user, String ipAddress, String url, Integer port);
     public Object getDocumentData(DataInput dataInput, Date requestDate, String user, String ipAddress, String url, Integer port);
     public Object getDistance(DataInput dataInput, Date requestDate, String user, String ipAddress, String url, Integer port);
