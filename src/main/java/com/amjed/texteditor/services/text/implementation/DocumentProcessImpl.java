@@ -14,16 +14,12 @@ import java.util.regex.Pattern;
 @Service
 public class DocumentProcessImpl implements DocumentProcess {
 
-    public EfficientDocument processText(String text) {
-        EfficientDocument efficientDocument = new EfficientDocument();
-        efficientDocument.setText(text);
-        efficientDocument.setNumberOfCharacters(text.length());
-        efficientDocument = processText(efficientDocument);
-        efficientDocument.setNumOfUniqueWords(efficientDocument.getWordsFrequency().size());
 
-        return efficientDocument;
-    }
-
+    /**
+     * this method is to get the Flesch Score of a text that represent how easy to read the test
+     * @param efficientDocument is the document to evaluate the score
+     * @return the flesch score
+     */
     private double getFleschScore(EfficientDocument efficientDocument) {
         double wordNumber = efficientDocument.getNumWords();
         double sentNumber = efficientDocument.getNumSentences();
@@ -42,8 +38,6 @@ public class DocumentProcessImpl implements DocumentProcess {
     private EfficientDocument processText(EfficientDocument efficientDocument1) {
         EfficientDocument efficientDocument = efficientDocument1;
         List<String> tokens = getTokens("[!?.]+|[a-zA-Z]+", efficientDocument.getText());
-        //TODO: @Task convert below to stream
-        //TODO:""[!?.]+|[a-zA-Z]+" should be constant to  avoid any change by mistake from any another eng working on the same project
         //tokens.stream().map(a ->)
         for (int i = 0; i < tokens.size(); i++) {
             if (isWord(tokens.get(i))) {
@@ -77,7 +71,6 @@ public class DocumentProcessImpl implements DocumentProcess {
     }
 
 
-    //TODO: you can move this to util class
     private boolean isWord(String tok) {
         return !(tok.indexOf("!") >= 0 || tok.indexOf(".") >= 0 || tok.indexOf("?") >= 0);
     }
@@ -86,9 +79,8 @@ public class DocumentProcessImpl implements DocumentProcess {
     /**
      * Returns the tokens that match the regex pattern from the document
      * text string.
-     *
      * @param pattern A regular expression string specifying the
-     *                token pattern desired
+     *           token pattern desired
      * @return A List of tokens from the document text that match the regex
      * pattern
      */
@@ -96,18 +88,15 @@ public class DocumentProcessImpl implements DocumentProcess {
         ArrayList<String> tokens = new ArrayList<>();
         Pattern tokSplitter = Pattern.compile(pattern);
         Matcher m = tokSplitter.matcher(text);
-
         while (m.find()) {
             tokens.add(m.group());
         }
-
         return tokens;
     }
 
     /**
      * This is a helper function that returns the number of syllables
      * in a word.
-     *
      * @param word The word to count the syllables in
      * @return The number of syllables in the given word, according to
      * this rule: Each contiguous sequence of one or more vowels is a syllable,
@@ -133,5 +122,15 @@ public class DocumentProcessImpl implements DocumentProcess {
             }
         }
         return count;
+    }
+    @Override
+    public EfficientDocument processText(String text) {
+        EfficientDocument efficientDocument = new EfficientDocument();
+        efficientDocument.setText(text);
+        efficientDocument.setNumberOfCharacters(text.length());
+        efficientDocument = processText(efficientDocument);
+        efficientDocument.setNumOfUniqueWords(efficientDocument.getWordsFrequency().size());
+
+        return efficientDocument;
     }
 }

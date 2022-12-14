@@ -5,8 +5,11 @@ import com.amjed.texteditor.models.dictionary.DictionaryTrie;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -23,4 +26,6 @@ public class DictionaryEntity {
     private Integer port;
     private String URL;
     private DictionaryTrie dictionaryTrie;
+
+
 }

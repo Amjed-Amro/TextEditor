@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface NearbyWords {
 
-    public List<String> suggestions(String word, int numSuggestions, DictionaryTrie dictionaryTrie);
+    List<String> suggestions(String word, int numSuggestions, DictionaryTrie dictionaryTrie);
 
-    public List<String> distanceOne(String word, boolean wordsOnly, DictionaryTrie dictionaryTrie);
+    List<String> distanceOne(String word, boolean wordsOnly, DictionaryTrie dictionaryTrie);
 
 }

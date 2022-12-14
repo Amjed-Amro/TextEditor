@@ -17,7 +17,6 @@ public class PredictCompletionImpl implements PredictCompletion {
      * of the prefix string. All legal completions must be valid words in the
      * dictionary. If the prefix itself is a valid word, it is included
      * in the list of returned words.
-     * <p>
      * The list of completions must contain
      * all of the shortest completions, but when there are ties, it may break
      * them in any order. For example, if there the prefix string is "ste" and
@@ -25,13 +24,12 @@ public class PredictCompletionImpl implements PredictCompletion {
      * dictionary, when the user asks for 4 completions, the list must include
      * "step", "stem" and "stew", but may include either the word
      * "steer" or "steep".
-     * <p>
      * If this string prefix is not in the trie, it returns an empty list.
-     *
      * @param prefix         The text to use at the word stem
      * @param numCompletions The maximum number of predictions desired.
      * @return A list containing the up to numCompletions best predictions
      */
+    @Override
     public List<String> predictCompletions(String prefix, int numCompletions, DictionaryTrie dictionaryTrie) {
         prefix = prefix.toLowerCase();
         List<String> completions = new ArrayList<String>();
@@ -61,7 +59,7 @@ public class PredictCompletionImpl implements PredictCompletion {
         }
         return completions;
     }
-
+    @Override
     public Boolean isCorrect(String word, DictionaryTrie dictionaryTrie) {
         return dictionaryTrie.isWord(word);
     }

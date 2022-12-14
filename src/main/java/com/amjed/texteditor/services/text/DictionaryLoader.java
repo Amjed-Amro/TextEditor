@@ -4,13 +4,13 @@ import com.amjed.texteditor.models.dictionary.DictionaryTrie;
 
 
 public interface DictionaryLoader {
-    public void loadDictionary(DictionaryTrie dictionaryTrie, String filename);
+    void loadDictionary(DictionaryTrie dictionaryTrie, String filename);
 
-    public DictionaryTrie loadDictionary(String filename);
+    DictionaryTrie loadDictionary(String filename);
 
-    public void loadDictionary(DictionaryTrie dictionaryTrie, String filename, int nWords);
+    void loadDictionary(DictionaryTrie dictionaryTrie, String filename, int nWords);
 
-    public boolean addWord(DictionaryTrie dictionaryTrie, String word);
+    boolean addWord(DictionaryTrie dictionaryTrie, String word);
 
 
 }

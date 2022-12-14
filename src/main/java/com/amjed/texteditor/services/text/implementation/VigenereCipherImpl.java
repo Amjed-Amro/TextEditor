@@ -5,12 +5,25 @@ import com.amjed.texteditor.models.dictionary.DictionaryTrie;
 import com.amjed.texteditor.services.text.VigenereCipher;
 
 public class VigenereCipherImpl implements VigenereCipher {
+
+    /**
+     * this method is used to encrypt messages using Vigenere Cipher with one key
+     * @param key is a word that represents the shift in alphabets.
+     * @param input is the message to be encrypted
+     * @return the encrypted message
+     */
     @Override
     public String encrypt(String input, String key) {
         int[] keys = vigKeys(key);
         return enc(keys, input);
     }
 
+    /**
+     * this method is used to decrypt messages using Vigenere Cipher with one key
+     * @param key is a word that represents the shift in alphabets.
+     * @param input is the message to be decrypted
+     * @return the decrypted message
+     */
     @Override
     public String decrypt(String input, String key) {
         int[] keys = vigKeys(key);
@@ -19,6 +32,13 @@ public class VigenereCipherImpl implements VigenereCipher {
         }
         return enc(keys, input);
     }
+
+    /**
+     * this method is used to break a message encrypted using Vigenere Cipher
+     * @param encrypted is the encrypted message
+     * @param dictionary is a dictionary contains words
+     * @return the broken message
+     */
     @Override
     public String breakVigenere(String encrypted, DictionaryTrie dictionary) {
         int max = 0;
@@ -95,7 +115,7 @@ public class VigenereCipherImpl implements VigenereCipher {
         return Constants.ALPHABET.LOWER.substring(key) + Constants.ALPHABET.LOWER.substring(0, key);
     }
 
-    public int[] tryKeyLength(String encrypted, int klength) {
+    private int[] tryKeyLength(String encrypted, int klength) {
         int[] key = new int[klength];
         for (int i = 0; i < klength; i++) {
             String split = sliceString(encrypted, i, klength);
@@ -105,7 +125,7 @@ public class VigenereCipherImpl implements VigenereCipher {
         return key;
     }
 
-    public String sliceString(String message, int whichSlice, int totalSlices) {
+    private String sliceString(String message, int whichSlice, int totalSlices) {
         StringBuilder result = new StringBuilder();
         for (int i = whichSlice; i < message.length(); i += totalSlices) {
             result.append( message.charAt(i));
@@ -115,7 +135,7 @@ public class VigenereCipherImpl implements VigenereCipher {
         return result.toString();
     }
 
-    public int countWords(String message, DictionaryTrie dictionary) {
+    private int countWords(String message, DictionaryTrie dictionary) {
         int count = 0;
         String[] split = message.split("\\W+");
         for (String word : split) {
@@ -126,7 +146,7 @@ public class VigenereCipherImpl implements VigenereCipher {
         return count;
     }
 
-    public int getKey(String encrypted) {
+    private int getKey(String encrypted) {
         int[] freqs = countLetters(encrypted);
         int maxDex = maxIndex(freqs);
         int mostCommonPos = 'e' - 'a';
@@ -137,7 +157,7 @@ public class VigenereCipherImpl implements VigenereCipher {
         return 26 - dkey;
     }
 
-    public int[] countLetters(String message) {
+    private int[] countLetters(String message) {
         int[] counts = new int[26];
         for (int k = 0; k < message.length(); k++) {
             int dex = Constants.ALPHABET.LOWER.indexOf(Character.toLowerCase(message.charAt(k)));
@@ -148,7 +168,7 @@ public class VigenereCipherImpl implements VigenereCipher {
         return counts;
     }
 
-    public int maxIndex(int[] values) {
+    private int maxIndex(int[] values) {
         int maxDex = 0;
         for (int k = 0; k < values.length; k++) {
             if (values[k] > values[maxDex]) {

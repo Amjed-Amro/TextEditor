@@ -2,128 +2,93 @@ package com.amjed.texteditor.controllers;
 
 
 import com.amjed.texteditor.models.Dto.DataInput;
+import com.amjed.texteditor.models.Dto.Response;
 import com.amjed.texteditor.services.business.BusinessServiceHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
-
+@RequestMapping(path = "/")
 @RestController
 public class AppController {
-
-    //TODO: where is the logger ?
-    //TODO: for   @CrossOrigin you can use it on class level rather than on controller level as you are using the same value for all
     @Autowired
     private BusinessServiceHandler businessServiceHandler;
 
-    @CrossOrigin("http://localhost:8080")
-    @GetMapping(value = "/saveDictionary")
-    public @ResponseBody Object savaDictionary(HttpServletRequest httpRequest) {
-        //TODO : one of the best practices to be specific in response not general object , better to have custom class related to your service
-        Object response = businessServiceHandler.savaDictionary(new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @GetMapping(value = "saveDictionary")
+    public ResponseEntity<Response> savaDictionary(HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.savaDictionary(httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/getDocumentData", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> getDocumentData(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.getDocumentData(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "getDocumentData")
+    public ResponseEntity<Response> getDocumentData(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.getDocumentData(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/getDistance", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> getDistance(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.getDistance(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "getDistance")
+    public ResponseEntity<Response> getDistance(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.getDistance(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/getPredictions", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> getPredictions(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.getPredictions(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "getPredictions")
+    public ResponseEntity<Response> getPredictions(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.getPredictions(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/getSpellingCheck", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> getSpellingCheck(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.getSpellingCheck(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "getSpellingCheck")
+    public ResponseEntity<Response> getSpellingCheck(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.getSpellingCheck(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/encryptMessage", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> encryptMessage(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.encryptMessage(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "encryptMessage")
+    public ResponseEntity<Response> encryptMessage(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.encryptMessage(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/encryptMessageTwoKeys", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> encryptMessageTwoKeys(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.encryptMessageTwoKeys(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "encryptMessageTwoKeys")
+    public ResponseEntity<Response> encryptMessageTwoKeys(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.encryptMessageTwoKeys(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/decryptMessage", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> decryptMessage(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.decryptMessage(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "decryptMessage")
+    public ResponseEntity<Response> decryptMessage(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.decryptMessage(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/decryptMessageTwoKeys", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> decryptMessageTwoKeys(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.decryptMessageTwoKeys(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "decryptMessageTwoKeys")
+    public ResponseEntity<Response> decryptMessageTwoKeys(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.decryptMessageTwoKeys(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/crackMessage", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> crackMessage(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.crackMessage(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "crackMessage")
+    public ResponseEntity<Response> crackMessage(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.crackMessage(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/vigEncrypt", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> vigEncrypt(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.vigEncrypt(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "vigEncrypt")
+    public ResponseEntity<Response> vigEncrypt(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.vigEncrypt(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/vigDecrypt", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> vigDecrypt(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.vigDecrypt(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "vigDecrypt")
+    public ResponseEntity<Response> vigDecrypt(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.vigDecrypt(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/vigBreak", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> vigBreak(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.vigBreak(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "vigBreak")
+    public ResponseEntity<Response> vigBreak(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.vigBreak(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @GetMapping(value = "/getAllRequests")
-    public @ResponseBody Object getAllRequests(HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.getAllRequests(new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
-        return response;
+    @GetMapping(value = "getAllRequests")
+    public ResponseEntity<Response> getAllRequests(HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.getAllRequests(httpRequest);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @CrossOrigin("http://localhost:8080")
-    @PostMapping(value = "/getAllRequests", consumes = {"application/json"})
-    public @ResponseBody ResponseEntity<Object> getAllRequests(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
-        Object response = businessServiceHandler.getAllRequests(dataInput, new Date(), httpRequest.getRemoteUser(),
-                httpRequest.getRemoteAddr(), httpRequest.getRequestURL().toString(), httpRequest.getRemotePort());
+    @PostMapping(value = "getAllRequests")
+    public ResponseEntity<Response> getAllRequests(@RequestBody DataInput dataInput, HttpServletRequest httpRequest) {
+        Response response = businessServiceHandler.getAllRequests(dataInput, httpRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class DataInput {
     private String firstWord;
     private String secondWord;

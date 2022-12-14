@@ -18,7 +18,6 @@ public class NearbyWordsImpl implements NearbyWords {
     /**
      * Return the list of Strings that are one modification away
      * from the input string.
-     *
      * @param word      The original String
      * @param wordsOnly controls whether to return only words or any String
      * @return list of Strings which are nearby the original string
@@ -32,11 +31,9 @@ public class NearbyWordsImpl implements NearbyWords {
         deletions(word, retList, wordsOnly);
         return retList;
     }
-
     /**
      * Add to the currentList Strings that are one character deletion away
      * from the input string.
-     *
      * @param word           The misspelled word
      * @param numSuggestions is the maximum number of suggestions to return
      * @return the list of spelling suggestions
@@ -49,7 +46,6 @@ public class NearbyWordsImpl implements NearbyWords {
         List<String> retList = new LinkedList<>();   // words to return
         queue.add(word);
         visited.add(word);
-
         while (queue.isEmpty() && retList.size() < numSuggestions) {
             String currWord = queue.get(0);
             queue.remove(0);
@@ -64,14 +60,10 @@ public class NearbyWordsImpl implements NearbyWords {
             }
         }
         return retList;
-
     }
-
-
     /**
      * Add to the currentList Strings that are one character insertion away
      * from the input string.
-     *
      * @param word        The original String
      * @param currentList is the list of words to append modified words
      * @param wordsOnly   controls whether to return only words or any String
@@ -92,8 +84,35 @@ public class NearbyWordsImpl implements NearbyWords {
             }
         }
     }
+    /**
+     * Add to the currentList Strings that are one character deletion away
+     * from the input string.
+     *
+     * @param word        The original String
+     * @param currentList is the list of words to append modified words
+     * @param wordsOnly   controls whether to return only words or any String
+     * @return
+     */
+    private void deletions(String word, List<String> currentList, boolean wordsOnly) {
+        for (int index = 0; index < word.length(); index++) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(word.substring(0, index));
+            stringBuilder.append(word.substring(index + 1));
 
+            if (!currentList.contains(stringBuilder.toString()) &&
+                    (!wordsOnly || dictionaryTrie.isWord(stringBuilder.toString())) &&
+                    !word.equals(stringBuilder.toString())) {
+                currentList.add(stringBuilder.toString());
+            }
+        }
+    }
 
+    /**
+     *
+     * @param s
+     * @param currentList
+     * @param wordsOnly
+     */
     private void insertions(String s, List<String> currentList, boolean wordsOnly) {
         for (int index = 0; index < s.length() + 1; index++) {
             for (int charCode = 'a'; charCode <= 'z'; charCode++) {
@@ -122,30 +141,6 @@ public class NearbyWordsImpl implements NearbyWords {
             }
         }
     }
-
-    /**
-     * Add to the currentList Strings that are one character deletion away
-     * from the input string.
-     *
-     * @param word        The original String
-     * @param currentList is the list of words to append modified words
-     * @param wordsOnly   controls whether to return only words or any String
-     * @return
-     */
-    private void deletions(String word, List<String> currentList, boolean wordsOnly) {
-        for (int index = 0; index < word.length(); index++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(word.substring(0, index));
-            stringBuilder.append(word.substring(index + 1));
-
-            if (!currentList.contains(stringBuilder.toString()) &&
-                    (!wordsOnly || dictionaryTrie.isWord(stringBuilder.toString())) &&
-                    !word.equals(stringBuilder.toString())) {
-                currentList.add(stringBuilder.toString());
-            }
-        }
-    }
-
 
 }
 

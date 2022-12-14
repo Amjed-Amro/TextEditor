@@ -16,6 +16,12 @@ import java.util.Objects;
 @Log4j2
 @Service
 public class DictionaryLoaderImpl implements DictionaryLoader {
+
+    /**
+     * this method is to add words to dictionary from file
+     * @param dictionaryTrie is the dictionary to add words to
+     * @param filename is the file
+     */
     @Override
     public void loadDictionary(DictionaryTrie dictionaryTrie, String filename) {
         BufferedReader reader = null;
@@ -31,6 +37,12 @@ public class DictionaryLoaderImpl implements DictionaryLoader {
         }
 
     }
+
+    /**
+     * this method is to load a dictionary from a file
+     * @param filename is the name of the file to load the dictionary from
+     * @return loaded dictionary as DictionaryTrie
+     */
 
     @Override
     public DictionaryTrie loadDictionary(String filename) {
@@ -50,8 +62,6 @@ public class DictionaryLoaderImpl implements DictionaryLoader {
         }
         return dictionaryTrie;
     }
-
-
     /**
      * Load the first N words from the dictionary file into the dictionary
      *
@@ -59,6 +69,7 @@ public class DictionaryLoaderImpl implements DictionaryLoader {
      * @param filename       The file containing the words to load.  Each word must be on a separate line.
      * @param nWords         The number of words to load.  It will load the first nWords words
      */
+
     @Override
     public void loadDictionary(DictionaryTrie dictionaryTrie, String filename, int nWords) {
         BufferedReader reader = null;
@@ -80,13 +91,10 @@ public class DictionaryLoaderImpl implements DictionaryLoader {
         }
 
     }
-
-
     /**
      * Insert a word into the trie.
      * This method adds a word by creating and linking the necessary trie nodes
-     * into the trie.
-     *
+     * into the trie.     *
      * @return true if the word was successfully added or false if it already exists
      * in the dictionary.
      */
